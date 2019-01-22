@@ -1,0 +1,25 @@
+<configuration>
+    <consumers>
+        <consumer>
+            <topics>
+                <topic>Topic-1</topic>
+            </topics>
+        </consumer>
+        <consumer>
+            <topics>
+                <topic>Topic-2</topic>
+            </topics>
+            <properties/>
+        </consumer>
+        <consumer>
+            <topics>
+                <topic>Topic-3</topic>
+                <topic>Topic-4</topic>
+            </topics>
+            <properties>
+                <property name="name-1" value="value-1"/>
+                <property name="name-2" value="value-2"/>
+            </properties>
+        </consumer>
+    </consumers>
+</configuration>
