@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error">
+    <Properties>
+        <Property name="directory">${env:KAFKA_UI_LOG_DIRECTORY:-.}</Property>
+        <Property name="filename">${directory}/kafka-ui</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="RollingFile" fileName="${filename}.log" filePattern="${filename}-%d{yyyy-MM-dd}.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %c{1}.%M:%L - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+        <Console name="STDOUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %c{1}.%M:%L - %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <!-- Specific logger for br.hikarikun92; this allows setting it to a configurable level -->
+        <Logger name="br.hikarikun92" level="${env:KAFKA_UI_LOG_LEVEL:-info}"/>
+        <!-- Root logger; will log as INFO for classes outside br.hikarikun92 and as the specified level for br.hikarikun92 -->
+        <Root level="info">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+    </Loggers>
+</Configuration>
