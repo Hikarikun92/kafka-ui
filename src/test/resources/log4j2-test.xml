@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error">
+    <Appenders>
+        <Console name="STDOUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %c{1}.%M:%L - %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <!-- Specific logger for br.hikarikun92; this allows setting it to a configurable level -->
+        <Logger name="br.hikarikun92" level="${env:KAFKA_UI_LOG_LEVEL:-info}"/>
+        <!-- Root logger; will log as INFO for classes outside br.hikarikun92 and as the specified level for br.hikarikun92 -->
+        <Root level="info">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+    </Loggers>
+</Configuration>

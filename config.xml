@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+    <!-- Properties that will be used by all consumers -->
+    <commonProperties>
+        <!-- A comma-separated list of addresses where Kafka is hosted -->
+        <property name="bootstrap.servers" value="localhost:9092,localhost:9093"/>
+
+        <!-- A unique string that identifies the consumer group this consumer belongs to. If two or more instances of consumers use the same group ID and subscribe to the same topic, only one of them will receive new messages. -->
+        <property name="group.id" value="TEST"/>
+
+        <!-- Security configs; they should be defined if Kafka should secure the connection using a security protocol (e.g. SSL). Below is a sample configuration for SSL. -->
+        <!--
+        The name of the security protocol Kafka should use.
+        <property name="security.protocol" value="SSL"/>
+
+        The path in the filesystem where the trust store file is.
+        <property name="ssl.truststore.location" value="/home/user/path/to/truststore.jks"/>
+
+        The password to use for the trust store file.
+        <property name="ssl.truststore.password" value="TrustStorePassword"/>
+
+        The path in the filesystem where the key store file is.
+        <property name="ssl.keystore.location" value="/home/user/path/to/keystore.jks"/>
+
+        The password to use for the key store file.
+        <property name="ssl.keystore.password" value="KeyStorePassword"/>
+
+        The password of the private key in the key store file.
+        <property name="ssl.key.password" value="KeyPassword"/>
+        -->
+    </commonProperties>
+    <!-- Configurations for the consumers this application should configure -->
+    <consumers>
+        <consumer>
+            <!-- Properties specific for this consumer -->
+            <properties>
+                <!-- A comma-separated list of addresses where Avro's Schema Registry is hosted. Must be a full URL with protocol (e.g. http://). -->
+                <property name="schema.registry.url" value="http://localhost:8081/"/>
+
+                <!-- Deserializer implementations for the key and value of the message, respectively -->
+                <property name="key.deserializer" value="io.confluent.kafka.serializers.KafkaAvroDeserializer"/>
+                <property name="value.deserializer" value="io.confluent.kafka.serializers.KafkaAvroDeserializer"/>
+            </properties>
+            <!-- A set of topics this consumer should listen to -->
+            <topics>
+                <topic>example-avro-1</topic>
+                <topic>example-avro-2</topic>
+            </topics>
+        </consumer>
+        <consumer>
+            <properties>
+                <property name="key.deserializer" value="org.apache.kafka.common.serialization.StringDeserializer"/>
+                <property name="value.deserializer" value="org.apache.kafka.common.serialization.StringDeserializer"/>
+            </properties>
+            <topics>
+                <topic>example-string</topic>
+            </topics>
+        </consumer>
+    </consumers>
+</configuration>
